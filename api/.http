@@ -1,3 +1,4 @@
+### Registro de usuário
 POST http://localhost:5000/auth/register
 Content-Type: application/json
 
@@ -7,3 +8,25 @@ Content-Type: application/json
     "email": "email@example.com",
     "login": "usuario_teste"
 }
+
+### Login com usuário
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "login": "usuario_teste",
+    "senha": "testpassword"
+}
+
+### Login com email
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+    "login": "email@example.com",
+    "senha": "testpassword"
+}
+
+### Perfil do usuário (rota protegida) - substituir TOKEN pelo token recebido no login
+GET http://localhost:5000/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MDYxNzYxMywianRpIjoiOGMzNzE5MmYtNjcxZS00NGE4LWJhYjEtOTNlMGEwMDM1ODBhIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjIiLCJuYmYiOjE3NjA2MTc2MTMsImNzcmYiOiI5Y2RjYTIxZS1hMzlhLTQ2ZDEtYjhiOC0yODQ5OTY5MGYzYTEiLCJleHAiOjE3NjA2MjEyMTN9.X9h7QDJFV8NIepkzt68yPWhytnneaRNGu6uRvzzn5Qg

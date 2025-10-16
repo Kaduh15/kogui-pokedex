@@ -2,6 +2,7 @@ import re
 from flask import Blueprint, jsonify, request
 from services.auth_service import AuthService
 from utils.http_status import HttpStatus
+from utils.auth_decorators import auth_required
 
 auth_routes = Blueprint("auth", __name__)
 
@@ -50,4 +51,59 @@ def register():
             }
         ),
         HttpStatus.CREATED,
+    )
+
+
+@auth_routes.route("/login", methods=["POST"])
+def login():
+    body = request.get_json()
+
+    # Validação dos campos obrigatórios
+    required_fields = ["login", "senha"]
+    if not all(body.get(field, "").strip() for field in required_fields):
+        return (
+            jsonify({"message": "Missing required fields: login and senha"}),
+            HttpStatus.BAD_REQUEST,
+        )
+
+    # Tentar autenticar o usuário
+    user, token = AuthService.authenticate_user(
+        body["login"], body["senha"]
+    )
+
+    if not user:
+        return (
+            jsonify({"message": "Invalid credentials"}),
+            HttpStatus.UNAUTHORIZED,
+        )
+
+    return (
+        jsonify(
+            {
+                "message": "Login successful",
+                "data": {
+                    "user": user.to_safe_dict(),
+                    "token": {"access_token": token, "token_type": "Bearer"},
+                },
+            }
+        ),
+        HttpStatus.OK,
+    )
+
+
+@auth_routes.route("/profile", methods=["GET"])
+@auth_required
+def get_profile(current_user):
+    """
+    Rota protegida que retorna o perfil do usuário autenticado.
+    Exemplo de uso do middleware de autenticação.
+    """
+    return (
+        jsonify(
+            {
+                "message": "Profile retrieved successfully",
+                "data": {"user": current_user.to_safe_dict()},
+            }
+        ),
+        HttpStatus.OK,
     )
