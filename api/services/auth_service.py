@@ -26,35 +26,17 @@ class AuthService:
         return UsuarioModel.query.filter(attr == value).first()
 
     @staticmethod
-    def authenticate_user(login_or_email, password):
-        """
-        Autentica um usuário usando login/email e senha.
+    def authenticate_user(email, password):
 
-        Args:
-            login_or_email (str): Login ou email do usuário
-            password (str): Senha do usuário
+        user = AuthService.get_user_by_unique_field("login", email)
 
-        Returns:
-            tuple: (UsuarioModel, token) se autenticação bem-sucedida,
-                   (None, None) caso contrário
-        """
-        # Tentar buscar por login primeiro
-        user = AuthService.get_user_by_unique_field("login", login_or_email)
-
-        # Se não encontrou por login, tentar por email
         if not user:
-            user = AuthService.get_user_by_unique_field(
-                "email",
-                login_or_email
-            )
+            user = AuthService.get_user_by_unique_field("email", email)
 
-        # Se usuário não existe, retorna None
         if not user:
             return None, None
 
-        # Verificar a senha
         if check_password(password, user.senha):
-            # Gerar token JWT
             token = create_access_token(identity=str(user.id))
             return user, token
 

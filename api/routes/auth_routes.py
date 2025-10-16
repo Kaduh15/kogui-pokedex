@@ -11,7 +11,7 @@ auth_routes = Blueprint("auth", __name__)
 def register():
     body = request.get_json()
 
-    required_fields = ["nome", "senha", "email", "login"]
+    required_fields = ["nome", "senha", "email"]
     if not all(body.get(field, "").strip() for field in required_fields):
         return (
             jsonify({"message": "Missing required fields in request body"}),
@@ -25,14 +25,11 @@ def register():
             HttpStatus.BAD_REQUEST,
         )
 
-    existing_user_login = AuthService.get_user_by_unique_field(
-        "login", body["login"]
-    )
     existing_user_email = AuthService.get_user_by_unique_field(
         "email", body["email"]
     )
 
-    if existing_user_login or existing_user_email:
+    if existing_user_email:
         return (
             jsonify({"message": "Login or email already in use"}),
             HttpStatus.CONFLICT,
@@ -58,17 +55,15 @@ def register():
 def login():
     body = request.get_json()
 
-    # Validação dos campos obrigatórios
-    required_fields = ["login", "senha"]
+    required_fields = ["email", "senha"]
     if not all(body.get(field, "").strip() for field in required_fields):
         return (
-            jsonify({"message": "Missing required fields: login and senha"}),
+            jsonify({"message": "Missing required fields: email and senha"}),
             HttpStatus.BAD_REQUEST,
         )
 
-    # Tentar autenticar o usuário
     user, token = AuthService.authenticate_user(
-        body["login"], body["senha"]
+        body["email"], body["senha"]
     )
 
     if not user:

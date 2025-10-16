@@ -7,7 +7,6 @@ class UsuarioModel(db.Model):
 
     id = db.Column("IDUsuario", db.Integer, primary_key=True)
     nome = db.Column("Nome", db.String(100), nullable=False)
-    login = db.Column("Login", db.String(50), unique=True, nullable=False)
     email = db.Column("Email", db.String(100), unique=True, nullable=False)
     senha = db.Column("Senha", db.String(255), nullable=False)
     dt_inclusao = db.Column("DtInclusao", db.DateTime, default=datetime.utcnow)
@@ -15,7 +14,6 @@ class UsuarioModel(db.Model):
         "DtAlteracao", db.DateTime, onupdate=datetime.utcnow
     )
 
-    # relacionamento 1:N com PokemonUsuario
     pokemons = db.relationship(
         "PokemonUsuarioModel",
         back_populates="usuario",
@@ -23,13 +21,12 @@ class UsuarioModel(db.Model):
     )
 
     def __repr__(self):
-        return f"<User {self.login}>"
+        return f"<User {self.nome}>"
 
     def to_dict(self):
         return {
             "id": self.id,
             "nome": self.nome,
-            "login": self.login,
             "email": self.email,
             "senha": self.senha,
             "dt_inclusao": (
@@ -45,5 +42,5 @@ class UsuarioModel(db.Model):
         excluindo campos sensíveis como a senha.
         """
         user_dict = self.to_dict()
-        user_dict.pop("senha", None)  # Remove a senha do dicionário
+        user_dict.pop("senha", None)
         return user_dict

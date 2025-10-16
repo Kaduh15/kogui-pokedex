@@ -16,6 +16,7 @@ def auth_required(f):
     def decorated_function(*args, **kwargs):
         try:
             current_user_id = get_jwt_identity()
+            print(f"Current user ID from token: {current_user_id}")
             current_user = UsuarioModel.query.get(current_user_id)
 
             print(current_user)
@@ -29,7 +30,8 @@ def auth_required(f):
             # Passar o usuário para a função
             return f(current_user=current_user, *args, **kwargs)
 
-        except Exception:
+        except Exception as e:
+            print(f"Error occurred: {e}")
             return (
                 jsonify({"message": "Invalid token"}),
                 HttpStatus.UNAUTHORIZED,
