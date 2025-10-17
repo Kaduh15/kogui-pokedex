@@ -16,10 +16,7 @@ def auth_required(f):
     def decorated_function(*args, **kwargs):
         try:
             current_user_id = get_jwt_identity()
-            print(f"Current user ID from token: {current_user_id}")
-            current_user = UsuarioModel.query.get(current_user_id)
-
-            print(current_user)
+            current_user = UsuarioModel.query.get(int(current_user_id))
 
             if not current_user:
                 return (
