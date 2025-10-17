@@ -1,0 +1,20 @@
+<header class="p-2 shadow bg-white flex justify-between items-center">
+  <div class="flex items-center">
+    <img src="logo-koguidex.svg" class="size-10" alt="Koguidex Logo" />
+    <span class="text-2xl font-bold ml-2 text-primary text-wrap">Kogui pokédex</span>
+  </div>
+
+  <ul>
+    <li class="flex items-center gap-2">
+      @for(link of links; track link.label) {
+      <app-button-navigate [icon]="link.icon" [label]="link.label" [route]="link.route"
+        [active]="link.active"></app-button-navigate>
+      }
+      <button class="flex gap-2 text-sm font-semibold transition px-4 py-2 rounded-lg cursor-pointer hover:bg-[#e7b008]"
+        (click)="logout()">
+        <i-lucide [img]="LogOutIcon" class="size-5"></i-lucide>
+        Sair
+      </button>
+    </li>
+  </ul>
+</header>
