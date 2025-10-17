@@ -12,6 +12,11 @@ export const routes: Routes = [
     canActivate: [authGuard]
   },
   {
+    path: 'home',
+    component: Home,
+    canActivate: [authGuard]
+  },
+  {
     path: 'login',
     component: Login,
     canActivate: [guestGuard]
@@ -20,6 +25,21 @@ export const routes: Routes = [
     path: 'register',
     component: Register,
     canActivate: [guestGuard]
+  },
+  {
+    path: 'favoritos',
+    component: Home,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'equipe',
+    component: Home,
+    canActivate: [authGuard]
+  },
+  {
+    path: 'perfil',
+    component: Home,
+    canActivate: [authGuard]
   },
   {
     path: '**',
