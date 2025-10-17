@@ -1,0 +1,22 @@
+### Registra novo usuario
+POST http://localhost:5000/auth/register
+Content-Type: application/json
+
+{
+  "nome": "teste",
+  "email": "teste@example.com",
+  "senha": "string123"
+}
+
+### Login
+POST http://localhost:5000/auth/login
+Content-Type: application/json
+
+{
+  "email": "teste@example.com",
+  "senha": "string123"
+}
+
+### Informações do usuário logado
+GET http://localhost:5000/auth/profile
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJmcmVzaCI6ZmFsc2UsImlhdCI6MTc2MDY0MDk3MCwianRpIjoiMGY4NjVjNWItYmVmNC00OWIxLTk0ZjQtY2MwYzY3NDFjNGZjIiwidHlwZSI6ImFjY2VzcyIsInN1YiI6IjEiLCJuYmYiOjE3NjA2NDA5NzAsImNzcmYiOiJkNGExNDVjZi0yNjljLTQwMjUtODAyNC1lMGMzNDNjYjA1NDMiLCJleHAiOjE3NjA2NDQ1NzB9.DxIOXthqQzGGL6rTRUvZN5VayhWs0zTea3-TVMr3xVA
