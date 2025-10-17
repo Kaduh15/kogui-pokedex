@@ -9,6 +9,7 @@ class AuthService:
     def register_user(data):
         hash_senha = hash_password(data["senha"])
         data["senha"] = hash_senha
+        data["login"] = data["email"].lower()
 
         user = UsuarioModel(**data)
         db.session.add(user)
@@ -20,7 +21,7 @@ class AuthService:
 
     @staticmethod
     def get_user_by_unique_field(field, value):
-        if field not in ["login", "email"]:
+        if field not in ["email"]:
             raise ValueError("Field must be either 'login' or 'email'")
         attr = getattr(UsuarioModel, field)
         return UsuarioModel.query.filter(attr == value).first()
@@ -28,10 +29,7 @@ class AuthService:
     @staticmethod
     def authenticate_user(email, password):
 
-        user = AuthService.get_user_by_unique_field("login", email)
-
-        if not user:
-            user = AuthService.get_user_by_unique_field("email", email)
+        user = AuthService.get_user_by_unique_field("email", email)
 
         if not user:
             return None, None

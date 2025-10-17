@@ -18,16 +18,14 @@ def register():
             HttpStatus.BAD_REQUEST,
         )
 
-    email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+    email_pattern = r"^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$"
     if not re.match(email_pattern, body["email"]):
         return (
             jsonify({"message": "Invalid email format"}),
             HttpStatus.BAD_REQUEST,
         )
 
-    existing_user_email = AuthService.get_user_by_unique_field(
-        "email", body["email"]
-    )
+    existing_user_email = AuthService.get_user_by_unique_field("email", body["email"])
 
     if existing_user_email:
         return (
@@ -62,9 +60,7 @@ def login():
             HttpStatus.BAD_REQUEST,
         )
 
-    user, token = AuthService.authenticate_user(
-        body["email"], body["senha"]
-    )
+    user, token = AuthService.authenticate_user(body["email"], body["senha"])
 
     if not user:
         return (
