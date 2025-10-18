@@ -2,47 +2,14 @@ import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 
 import { environment } from '../../environments/environment';
-
-export interface GetPokemonsResponse {
-  data: DataGetPokemons
-  message: string
-}
-
-export interface DataGetPokemons {
-  count: number
-  next: number
-  previous: number | null
-  results: ResultGetPokemon[]
-}
-
-export interface ResultGetPokemon {
-  generation: number
-  id: number
-  imageUrl: string
-  name: string
-  types: string[]
-}
-
-export interface GetPokemonsUserResponse {
-  data: PokemonsUser[]
-  message: string
-}
-
-export interface PokemonsUser {
-  codigo: string
-  favorito: boolean
-  grupo_batalha: boolean
-  id: number
-  id_usuario: number
-  imagem_url: string
-  nome: string
-  tipos: Tipo[]
-}
-
-export interface Tipo {
-  descricao: string
-  id: number
-}
+import {
+  GetPokemonsResponse,
+  GetUserPokemonsResponse,
+  AuthResponse,
+  SimpleResponse,
+  LoginRequest,
+  RegisterRequest
+} from '../types';
 
 
 @Injectable({
@@ -52,45 +19,39 @@ export class Api {
   private readonly _apiUrl = environment.apiUrl;
   private readonly _httpClient = inject(HttpClient);
 
-  register(data: { nome: string, email: string; senha: string }) {
-    const res = this._httpClient.post<{
-      data: {
-        token: {
-          access_token: string
-        }
-      }
-    }>(`${this._apiUrl}/auth/register`, data);
-
-    return res;
+  register(data: RegisterRequest) {
+    return this._httpClient.post<AuthResponse>(`${this._apiUrl}/auth/register`, data);
   }
 
-  login(data: { email: string; senha: string }) {
-    const res = this._httpClient.post<{
-      data: {
-        token: {
-          access_token: string
-        }
-      }
-    }>(`${this._apiUrl}/auth/login`, data);
-
-    return res;
+  login(data: LoginRequest) {
+    return this._httpClient.post<AuthResponse>(`${this._apiUrl}/auth/login`, data);
   }
 
   getPokemons() {
-    const res = this._httpClient.get<GetPokemonsResponse>(`${this._apiUrl}/api/pokemon`);
-
-    return res;
+    return this._httpClient.get<GetPokemonsResponse>(`${this._apiUrl}/api/pokemon`);
   }
 
   getPokemonsUser() {
-    const res = this._httpClient.get<GetPokemonsUserResponse>(`${this._apiUrl}/api/pokemon/user`);
-
-    return res;
+    return this._httpClient.get<GetUserPokemonsResponse>(`${this._apiUrl}/api/pokemon/user`);
   }
 
   addFavoritePokemon(pokemonId: number) {
-    const res = this._httpClient.post<{ message: string }>(`${this._apiUrl}/api/pokemon/user/${pokemonId}/favorite`, {});
+    return this._httpClient.post<SimpleResponse>(`${this._apiUrl}/api/pokemon/user/${pokemonId}/favorite`, {});
+  }
 
-    return res;
+  removeFavoritePokemon(pokemonId: number) {
+    return this._httpClient.delete<SimpleResponse>(`${this._apiUrl}/api/pokemon/user/${pokemonId}/favorite`);
+  }
+
+  addPokemonToTeam(pokemonId: number) {
+    return this._httpClient.post<SimpleResponse>(`${this._apiUrl}/api/pokemon/user/${pokemonId}/battle-group`, {});
+  }
+
+  removePokemonFromTeam(pokemonId: number) {
+    return this._httpClient.delete<SimpleResponse>(`${this._apiUrl}/api/pokemon/user/${pokemonId}/battle-group`);
+  }
+
+  getUserPokemons() {
+    return this._httpClient.get<GetUserPokemonsResponse>(`${this._apiUrl}/api/pokemon/user`);
   }
 }
