@@ -1,0 +1,30 @@
+<div [attr.data-team]="isTeam"
+  class="min-w-fit px-8 py-4 border border-border bg-white rounded-xl data-[team=true]:border-warning data-[team=true]:border-3 relative">
+  <img src="{{imageUrl}}" alt="imagem do Pokémon {{name}}" class="h-40 aspect-square m-auto" />
+
+  <button [attr.data-favorite]="isFavorite"
+    class="absolute top-3 right-3 rounded-full p-2 shadow-md hover:shadow-lg transition-shadow data-[favorite=true]:text-warning cursor-pointer"
+    type="button">
+    <i-lucide [attr.data-favorite]="isFavorite" class="{{isFavorite ? 'fill-current' : ''}}" [img]="HeartIcon"
+      size="16"></i-lucide>
+  </button>
+
+  <div class="space-y-2 text-center">
+    <p class="font-bold text-lg capitalize">{{name}}</p>
+
+    <ul class="flex gap-2 justify-center">
+      @for(type of types; track type){
+      <li>
+        <app-type-pokemon-badge [type]=" type" variant="solid"></app-type-pokemon-badge>
+      </li>
+      }
+    </ul>
+
+    <button [attr.data-team]="isTeam"
+      class="flex justify-center items-center w-full bg-accent text-white font-semibold rounded-lg hover:bg-accent-hover transition-colors py-2 px-4 text-sm gap-3 data-[team=true]:bg-primary data-[team=true]:hover:bg-primary-hover "
+      type="button">
+      <i-lucide [img]="isTeam ? XIcon : PlusIcon" [size]="16"></i-lucide>
+      {{ isTeam ? 'Remover do Time' : 'Adicionar ao Time' }}
+    </button>
+  </div>
+</div>
