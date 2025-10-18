@@ -1,9 +1,6 @@
-export type PokemonType =
-  | 'normal' | 'fire' | 'water' | 'grass' | 'electric' | 'ice'
-  | 'fighting' | 'poison' | 'ground' | 'flying' | 'psychic'
-  | 'bug' | 'rock' | 'ghost' | 'dragon' | 'dark' | 'steel' | 'fairy';
+import type { PokemonType, TypeVariant } from '../app/types';
 
-export type TypeVariant = 'solid' | 'soft' | 'ring' | 'gradient';
+export { PokemonType, TypeVariant }
 
 interface TypeStyle {
   solid: string;
