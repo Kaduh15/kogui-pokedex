@@ -1,5 +1,6 @@
 import { Routes } from '@angular/router';
 
+import { Favorite } from './pages/favorite/favorite';
 import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
@@ -29,7 +30,7 @@ export const routes: Routes = [
   },
   {
     path: 'favoritos',
-    component: Home,
+    component: Favorite,
     canActivate: [authGuard]
   },
   {
