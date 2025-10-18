@@ -15,5 +15,6 @@ export class App {
 
   constructor() {
     this.userService.getPokemons()
+    this.userService.getUserInfo()
   }
 }

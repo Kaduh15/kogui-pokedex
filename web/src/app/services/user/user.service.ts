@@ -14,7 +14,41 @@ export class UserService {
     map(p => structuredClone(p))
   );
 
+  infoUser: {
+    email: string;
+    name: string;
+    createdAt: string;
+    role: 'User' | 'Admin';
+  } = {
+      email: '',
+      name: '',
+      createdAt: '',
+      role: 'User'
+    }
+
   #apiService = inject(Api);
+
+  getUserInfo() {
+    this.#apiService.getUserInfo().subscribe({
+      next: (res) => {
+        const date = new Date(res.data.user.dt_inclusao);
+
+        const formatted = date.toLocaleDateString("pt-BR", {
+          day: "numeric",
+          month: "long",
+          year: "numeric",
+        });
+
+
+        this.infoUser = {
+          email: res.data.user.email,
+          name: res.data.user.nome,
+          createdAt: formatted,
+          role: 'User'
+        };
+      }
+    });
+  }
 
   getPokemons() {
     this.#apiService.getUserPokemons().subscribe({
@@ -63,7 +97,7 @@ export class UserService {
 
     // Atualiza Pokemon existente
     this.#pokemons.next(
-      this.#pokemons.getValue().map(p => 
+      this.#pokemons.getValue().map(p =>
         p.id === id ? { ...p, isFavorite, isInTeam } : p
       )
     );

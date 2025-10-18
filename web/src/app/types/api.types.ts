@@ -15,6 +15,14 @@ export interface ApiErrorResponse {
   statusCode?: number;
 }
 
+export interface APIUserInfo {
+  dt_alteracao: string | null
+  dt_inclusao: string
+  email: string
+  id: number
+  nome: string
+}
+
 /**
  * Pokemon vindo da API externa (PokeAPI)
  */
@@ -39,7 +47,7 @@ export interface ApiPokemonList {
 /**
  * Response para lista de Pokemon
  */
-export interface GetPokemonsResponse extends ApiResponse<ApiPokemonList> {}
+export interface GetPokemonsResponse extends ApiResponse<ApiPokemonList> { }
 
 /**
  * Pokemon do usuário vindo do backend
@@ -66,7 +74,7 @@ export interface ApiPokemonType {
 /**
  * Response para Pokemon do usuário
  */
-export interface GetUserPokemonsResponse extends ApiResponse<ApiUserPokemon[]> {}
+export interface GetUserPokemonsResponse extends ApiResponse<ApiUserPokemon[]> { }
 
 /**
  * Dados de login
@@ -95,9 +103,11 @@ export interface AuthToken {
 /**
  * Response de autenticação
  */
-export interface AuthResponse extends ApiResponse<{ token: AuthToken }> {}
+export interface AuthResponse extends ApiResponse<{ token: AuthToken }> { }
 
 /**
  * Response simples (para ações como favoritar, adicionar ao time, etc)
  */
-export interface SimpleResponse extends ApiResponse<null> {}
+export interface SimpleResponse extends ApiResponse<null> { }
+
+export interface GetUserInfoResponse extends ApiResponse<{ user: APIUserInfo }> { }

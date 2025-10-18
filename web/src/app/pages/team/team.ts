@@ -19,7 +19,6 @@ export class Team {
 
   constructor() {
     this.userService.pokemons$.subscribe(pokemons => {
-      console.info('🚀 ~ :21 ~ Team ~ constructor ~ pokemons:', pokemons)
       this.pokemons = pokemons.filter(p => p.isInTeam);
     });
   }

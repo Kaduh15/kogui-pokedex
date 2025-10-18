@@ -1,9 +1,10 @@
 <div [attr.data-team]="isInTeam"
-  class="border-border data-[team=true]:border-warning relative min-w-fit rounded-xl border bg-white px-8 py-4 data-[team=true]:border-3">
-  <img src="{{ imageUrl }}" alt="imagem do Pokémon {{ name }}" class="m-auto aspect-square h-40" />
+  class="group hover:scale-105 transition-all duration-300 border-border data-[team=true]:border-warning relative min-w-fit rounded-xl border bg-white px-8 py-4 data-[team=true]:border-3">
+  <img src="{{ imageUrl }}" alt="imagem do Pokémon {{ name }}"
+    class="m-auto aspect-square h-40 transition-transform duration-300 group-hover:scale-110" />
 
   <button [attr.data-favorite]="isFavorite" [disabled]="loadingToggleFavorite"
-    class="data-[favorite=true]:text-warning absolute top-3 right-3 cursor-pointer rounded-full p-2 shadow-md transition-shadow hover:shadow-lg"
+    class="data-[favorite=true]:text-warning absolute top-3 right-3 cursor-pointer rounded-full p-2 shadow-md transition-all duration-500 hover:shadow-lg hover:scale-105 hover:bg-primary bg-white"
     type="button" (click)="toggleFavorite()">
     <i-lucide [attr.data-favorite]="isFavorite" class="{{ isFavorite ? 'fill-current' : '' }}" [img]="HeartIcon"
       size="16"></i-lucide>
@@ -28,3 +29,5 @@
     </button>
   </div>
 </div>
+
+<sc-angular-toastify></sc-angular-toastify>

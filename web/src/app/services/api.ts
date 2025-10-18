@@ -8,7 +8,8 @@ import {
   AuthResponse,
   SimpleResponse,
   LoginRequest,
-  RegisterRequest
+  RegisterRequest,
+  GetUserInfoResponse
 } from '../types';
 
 
@@ -25,6 +26,10 @@ export class Api {
 
   login(data: LoginRequest) {
     return this._httpClient.post<AuthResponse>(`${this._apiUrl}/auth/login`, data);
+  }
+
+  getUserInfo() {
+    return this._httpClient.get<GetUserInfoResponse>(`${this._apiUrl}/auth/profile`);
   }
 
   getPokemons() {
