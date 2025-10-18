@@ -1,14 +1,15 @@
 import { Component, inject, Input } from '@angular/core';
 import { Heart, LucideAngularModule, Plus, X } from 'lucide-angular';
+import { ToastService, ScAngularToastify } from 'sc-angular-toastify';
 
 import { Api } from '../../services/api';
 import { UserService } from '../../services/user/user.service';
 import { CreatePokemonData, PokemonType } from '../../types';
-import { TypePokemonBadge } from "../type-pokemon-badge/type-pokemon-badge";
+import { TypePokemonBadge } from '../type-pokemon-badge/type-pokemon-badge';
 
 @Component({
   selector: 'app-card-pokemon',
-  imports: [LucideAngularModule, TypePokemonBadge],
+  imports: [LucideAngularModule, TypePokemonBadge, ScAngularToastify],
   templateUrl: './card-pokemon.html'
 })
 export class CardPokemon {
@@ -29,6 +30,8 @@ export class CardPokemon {
   apiService = inject(Api);
   userService = inject(UserService);
 
+  #toast: ToastService = inject(ToastService);
+
   toggleFavorite() {
     this.loadingToggleFavorite = true;
 
@@ -37,9 +40,11 @@ export class CardPokemon {
         next: () => {
           this.userService.removePokemon(this.id);
           this.isFavorite = false;
+
+          this.#toast.show(`${this.name} foi removido dos seus favoritos! Favorito Removido`);
         },
         error: (err) => {
-          console.error('Failed to remove favorite:', err);
+          this.#toast.show(err.error?.error || 'Erro ao remover dos favoritos.');
         },
         complete: () => {
           this.loadingToggleFavorite = false;
@@ -51,7 +56,7 @@ export class CardPokemon {
           const pokemonData: CreatePokemonData = {
             id: this.id,
             name: this.name,
-            types: this.types, // ✅ Já é string[]
+            types: this.types,
             imageUrl: this.imageUrl,
             generation: 0,
             isFavorite: true,
@@ -59,6 +64,7 @@ export class CardPokemon {
           };
           this.userService.addPokemon(pokemonData);
 
+          this.#toast.show(`${this.name} foi adicionado aos seus favoritos! Favorito Adicionado`);
           this.isFavorite = true;
         },
         error: (err) => {
@@ -72,20 +78,20 @@ export class CardPokemon {
   }
 
   toggleTeam() {
-    this.loadingToggleTeam = true; // ✅ Ativa loading
+    this.loadingToggleTeam = true;
 
     if (this.isInTeam) {
       this.apiService.removePokemonFromTeam(this.id).subscribe({
         next: () => {
           this.userService.removePokemon(this.id);
           this.isInTeam = false;
+          this.#toast.show(`${this.name} foi removido da sua equipe! Pokémon Removido`);
         },
         error: (err) => {
-          console.error('Failed to remove from team:', err);
-          alert(err.error?.error || 'Erro ao remover Pokémon da equipe.');
+          this.#toast.show(err.error?.error || 'Erro ao remover Pokémon da equipe.');
         },
         complete: () => {
-          this.loadingToggleTeam = false; // ✅ Desativa loading
+          this.loadingToggleTeam = false;
         }
       });
     } else {
@@ -94,7 +100,7 @@ export class CardPokemon {
           const pokemonData: CreatePokemonData = {
             id: this.id,
             name: this.name,
-            types: this.types, // ✅ Já é string[]
+            types: this.types,
             imageUrl: this.imageUrl,
             generation: 0,
             isFavorite: this.isFavorite,
@@ -102,13 +108,15 @@ export class CardPokemon {
           };
           this.userService.addPokemon(pokemonData);
           this.isInTeam = true;
+
+          this.#toast.show(`${this.name} foi adicionado à sua equipe! Pokémon Adicionado`);
         },
         error: (err) => {
           console.error('Failed to add to team:', err);
-          alert(err.error?.error || 'Erro ao adicionar Pokémon à equipe.');
+          this.#toast.show(err.error?.error || 'Erro ao adicionar Pokémon à equipe.');
         },
         complete: () => {
-          this.loadingToggleTeam = false; // ✅ Desativa loading
+          this.loadingToggleTeam = false;
         }
       });
     }

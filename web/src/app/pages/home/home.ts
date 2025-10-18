@@ -48,8 +48,6 @@ export class Home {
           isFavorite: userPokemonsMap.has(p.id) ? userPokemonsMap.get(p.id)!.isFavorite : false,
           isInTeam: userPokemonsMap.has(p.id) ? userPokemonsMap.get(p.id)!.isInTeam : false,
         }));
-
-        console.info('🚀 ~ :33 ~ Home ~ this.pokemons:', this.userService.pokemons$);
       },
       error: (err) => {
         console.error('Erro ao carregar Pokémons:', err);
