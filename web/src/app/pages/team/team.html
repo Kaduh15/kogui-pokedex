@@ -1,0 +1,20 @@
+<app-header></app-header>
+
+<div class="flex flex-col gap-4 px-4 py-8 max-w-5xl mx-auto bg-surface">
+  <div class="space-y-2">
+    <h1 class="text-[#f0ba1a] text-4xl font-bold flex items-center">
+      <i-lucide [img]="UsersIcon" class="inline-block mr-2"></i-lucide>
+      Meus Favoritados
+    </h1>
+    <p class="text-base text-muted">{{pokemons.length}}/6 Pokémons na equipe</p>
+  </div>
+
+  <div class="mt-4">
+    <div class="animate-fade-in grid grid-cols-1 gap-6 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4">
+      @for (pokemon of pokemons; track pokemon.id) {
+      <app-card-pokemon [name]="pokemon.name" [imageUrl]="pokemon.imageUrl" [types]="$any(pokemon.types)"
+        [id]="pokemon.id" [isFavorite]="pokemon.isFavorite" [isInTeam]="pokemon.isInTeam"></app-card-pokemon>
+      }
+    </div>
+  </div>
+</div>
