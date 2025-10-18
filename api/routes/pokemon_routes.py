@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 
 from services.pokeapi_service import PokeAPIService
 from services.pokemon_service import PokemonService
@@ -13,7 +13,11 @@ pokeapi_service = PokeAPIService()
 @pokemon_routes.route("/pokemon", methods=["GET"])
 @auth_required
 def get_pokemon(current_user):
-    data = pokeapi_service.get_pokemon()
+    page = int(request.args.get("page", 1))
+    limit = int(request.args.get("limit", 20))
+    gen = request.args.get("gen", None)
+    name = request.args.get("name", None)
+    data = pokeapi_service.get_pokemon(page=page, limit=limit, gen=gen, name=name)
 
     return (
         jsonify({"message": "Pokémon acessado com sucesso!", "data": data}),
