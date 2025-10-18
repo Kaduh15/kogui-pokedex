@@ -4,6 +4,7 @@ from flask_jwt_extended import JWTManager
 from config import Config
 from database import init_db
 
+from routes.user_routes import user_routes
 from routes.auth_routes import auth_routes
 from routes.pokemon_routes import pokemon_routes
 
@@ -30,6 +31,7 @@ def create_app():
 
     app.register_blueprint(auth_routes, url_prefix="/auth")
     app.register_blueprint(pokemon_routes, url_prefix="/api")
+    app.register_blueprint(user_routes, url_prefix="/api")
 
     return app
 
