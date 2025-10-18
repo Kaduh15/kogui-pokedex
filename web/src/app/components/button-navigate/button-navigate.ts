@@ -1,7 +1,6 @@
 import { Component, inject, Input, InputSignal } from '@angular/core';
 import { LucideAngularModule, LucideIconData } from 'lucide-angular';
 import { RouterLink } from "@angular/router";
-import { AuthService } from '../../services/auth/auth.service';
 
 @Component({
   selector: 'app-button-navigate',
