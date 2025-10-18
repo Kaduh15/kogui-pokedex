@@ -4,6 +4,7 @@ import { Favorite } from './pages/favorite/favorite';
 import { Home } from './pages/home/home';
 import { Login } from './pages/login/login';
 import { Register } from './pages/register/register';
+import { Team } from './pages/team/team';
 import { authGuard } from './services/auth/auth.guard';
 import { guestGuard } from './services/auth/guest.guard';
 
@@ -35,7 +36,7 @@ export const routes: Routes = [
   },
   {
     path: 'equipe',
-    component: Home,
+    component: Team,
     canActivate: [authGuard]
   },
   {

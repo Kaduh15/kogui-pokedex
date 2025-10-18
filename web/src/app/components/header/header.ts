@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { Heart, HouseIcon, LogOut, LucideAngularModule, User, Users } from 'lucide-angular';
 
 import { AuthService } from '../../services/auth/auth.service';
+import { UserService } from '../../services/user/user.service';
 import { ButtonNavigate } from "../button-navigate/button-navigate";
 
 @Component({
@@ -15,6 +16,7 @@ export class Header implements OnInit {
 
   router = inject(Router);
   authService = inject(AuthService);
+  userService = inject(UserService);
 
   links = [
     { icon: HouseIcon, label: 'Todos', route: '/', active: true },
@@ -31,6 +33,7 @@ export class Header implements OnInit {
   }
 
   logout() {
+    this.userService.clearPokemons();
     this.authService.logout();
   }
 }
