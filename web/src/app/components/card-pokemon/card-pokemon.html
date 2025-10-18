@@ -1,20 +1,13 @@
-<div
-  [attr.data-team]="isTeam"
-  class="border-border data-[team=true]:border-warning relative min-w-fit rounded-xl border bg-white px-8 py-4 data-[team=true]:border-3"
->
-  <img src="{{ imageUrl }}" alt="imagem do Pokémon {{ name }}" class="m-auto aspect-square h-40" />
+<div [attr.data-team]="isInTeam"
+  class="group hover:scale-105 transition-all duration-300 border-border data-[team=true]:border-warning relative min-w-fit rounded-xl border bg-white px-8 py-4 data-[team=true]:border-3">
+  <img src="{{ imageUrl }}" alt="imagem do Pokémon {{ name }}"
+    class="m-auto aspect-square h-40 transition-transform duration-300 group-hover:scale-110" />
 
-  <button
-    [attr.data-favorite]="isFavorite"
-    class="data-[favorite=true]:text-warning absolute top-3 right-3 cursor-pointer rounded-full p-2 shadow-md transition-shadow hover:shadow-lg"
-    type="button"
-  >
-    <i-lucide
-      [attr.data-favorite]="isFavorite"
-      class="{{ isFavorite ? 'fill-current' : '' }}"
-      [img]="HeartIcon"
-      size="16"
-    ></i-lucide>
+  <button [attr.data-favorite]="isFavorite" [disabled]="loadingToggleFavorite"
+    class="data-[favorite=true]:text-warning absolute top-3 right-3 cursor-pointer rounded-full p-2 shadow-md transition-all duration-500 hover:shadow-lg hover:scale-105 hover:bg-primary bg-white"
+    type="button" (click)="toggleFavorite()">
+    <i-lucide [attr.data-favorite]="isFavorite" class="{{ isFavorite ? 'fill-current' : '' }}" [img]="HeartIcon"
+      size="16"></i-lucide>
   </button>
 
   <div class="space-y-2 text-center">
@@ -22,19 +15,19 @@
 
     <ul class="flex justify-center gap-2">
       @for (type of types; track type) {
-        <li>
-          <app-type-pokemon-badge [type]="type" variant="solid"></app-type-pokemon-badge>
-        </li>
+      <li>
+        <app-type-pokemon-badge [type]="type" variant="solid"></app-type-pokemon-badge>
+      </li>
       }
     </ul>
 
-    <button
-      [attr.data-team]="isTeam"
+    <button [attr.data-team]="isInTeam"
       class="bg-accent hover:bg-accent-hover data-[team=true]:bg-primary data-[team=true]:hover:bg-primary-hover flex w-full items-center justify-center gap-3 rounded-lg px-4 py-2 text-sm font-semibold text-white transition-colors"
-      type="button"
-    >
-      <i-lucide [img]="isTeam ? XIcon : PlusIcon" [size]="16"></i-lucide>
-      {{ isTeam ? 'Remover do Time' : 'Adicionar ao Time' }}
+      type="button" (click)="toggleTeam()" [disabled]="loadingToggleTeam">
+      <i-lucide [img]="isInTeam ? XIcon : PlusIcon" [size]="16"></i-lucide>
+      {{ isInTeam ? 'Remover do Time' : 'Adicionar ao Time' }}
     </button>
   </div>
 </div>
+
+<sc-angular-toastify></sc-angular-toastify>

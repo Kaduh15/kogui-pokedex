@@ -67,7 +67,7 @@ class PokemonService:
             id_usuario=user_id,
             codigo=str(pokemon_data["id"]),
             nome=pokemon_data["name"].capitalize(),
-            imagem_url=pokemon_data.get("sprite"),
+            imagem_url=pokemon_data["imageUrl"],
             favorito=as_favorite,
             grupo_batalha=in_battle_group,
         )
@@ -115,3 +115,47 @@ class PokemonService:
             raise RuntimeError(
                 "Usuário já possui 6 pokémons no grupo de batalha (limite máximo)"
             )
+
+    @staticmethod
+    def remove_favorite_pokemon(user_id: int, pokemon_id: str) -> PokemonUsuarioModel:
+        pokemon = PokemonUsuarioModel.query.filter_by(
+            id_usuario=user_id, codigo=str(pokemon_id), favorito=True
+        ).first()
+
+        if not pokemon:
+            raise ValueError(
+                f"Pokémon with ID {pokemon_id} not found among user's favorites."
+            )
+
+        pokemon.mark_favorite(False)
+        db.session.commit()
+        return pokemon
+
+    @staticmethod
+    def remove_from_battle_group(user_id: int, pokemon_id: str) -> PokemonUsuarioModel:
+        pokemon = PokemonUsuarioModel.query.filter_by(
+            id_usuario=user_id, codigo=str(pokemon_id), grupo_batalha=True
+        ).first()
+
+        if not pokemon:
+            raise ValueError(
+                f"Pokémon with ID {pokemon_id} not found in user's battle group."
+            )
+
+        pokemon.set_battle_group(False)
+        db.session.commit()
+        return pokemon
+
+    @staticmethod
+    def get_user_pokemons(
+        user_id, as_favorite: bool = False, in_battle_group: bool = False
+    ):
+        query = PokemonUsuarioModel.query.filter_by(id_usuario=user_id)
+
+        if as_favorite:
+            query = query.filter_by(favorito=True)
+
+        if in_battle_group:
+            query = query.filter_by(grupo_batalha=True)
+
+        return query.all()
