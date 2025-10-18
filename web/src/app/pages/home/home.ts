@@ -1,8 +1,9 @@
 import { Component } from '@angular/core';
-import { Header } from "../../components/header/header";
-import { LucideAngularModule, Search } from 'lucide-angular';
 import { FormsModule } from '@angular/forms';
+import { LucideAngularModule, Search } from 'lucide-angular';
+
 import { CardPokemon } from "../../components/card-pokemon/card-pokemon";
+import { Header } from "../../components/header/header";
 
 const mockPokemons = [
   {

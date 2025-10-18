@@ -1,7 +1,8 @@
 import { Component, Input } from '@angular/core';
 import { Heart, LucideAngularModule, Plus, X } from 'lucide-angular';
-import { TypePokemonBadge } from "../type-pokemon-badge/type-pokemon-badge";
+
 import { PokemonType } from '../../../utils/pokemon-type.util';
+import { TypePokemonBadge } from "../type-pokemon-badge/type-pokemon-badge";
 
 @Component({
   selector: 'app-card-pokemon',

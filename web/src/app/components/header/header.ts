@@ -1,15 +1,16 @@
-import { Component, inject } from '@angular/core';
-import { Heart, HouseIcon, LogOut, LucideAngularModule, User, Users } from 'lucide-angular';
-import { ButtonNavigate } from "../button-navigate/button-navigate";
+import { Component, inject, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Heart, HouseIcon, LogOut, LucideAngularModule, User, Users } from 'lucide-angular';
+
 import { AuthService } from '../../services/auth/auth.service';
+import { ButtonNavigate } from "../button-navigate/button-navigate";
 
 @Component({
   selector: 'app-header',
   imports: [LucideAngularModule, ButtonNavigate],
   templateUrl: './header.html',
 })
-export class Header {
+export class Header implements OnInit {
   readonly LogOutIcon = LogOut;
 
   router = inject(Router);

@@ -1,5 +1,8 @@
-<a [routerLink]="route" [attr.data-active]="active"
-  class="flex items-center gap-2 hover:bg-primary  capitalize px-4 py-2 rounded-lg transition font-semibold text-sm data-[active=true]:text-surface data-[active=true]:bg-primary data-[active=true]:hover:bg-primary data-[active=false]:hover:bg-[#e7b008] text-nowrap">
-  <i-lucide [name]="icon" class="size-5 mr-1"></i-lucide>
-  {{label}}
+<a
+  [routerLink]="route"
+  [attr.data-active]="active"
+  class="hover:bg-primary data-[active=true]:text-surface data-[active=true]:bg-primary data-[active=true]:hover:bg-primary flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-nowrap capitalize transition data-[active=false]:hover:bg-[#e7b008]"
+>
+  <i-lucide [name]="icon" class="mr-1 size-5"></i-lucide>
+  {{ label }}
 </a>

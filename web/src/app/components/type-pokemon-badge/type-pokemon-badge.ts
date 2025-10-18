@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+
 import { getPokemonTypeClasses, PokemonType } from '../../../utils/pokemon-type.util';
 
 @Component({

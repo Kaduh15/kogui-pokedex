@@ -1,6 +1,5 @@
 import { Component } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { House, LucideAngularModule } from 'lucide-angular';
 
 @Component({
   selector: 'app-root',
