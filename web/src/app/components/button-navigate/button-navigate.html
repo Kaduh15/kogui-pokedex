@@ -1,0 +1,8 @@
+<a
+  [routerLink]="route"
+  [attr.data-active]="active"
+  class="hover:bg-primary data-[active=true]:text-surface data-[active=true]:bg-primary data-[active=true]:hover:bg-primary flex items-center gap-2 rounded-lg px-4 py-2 text-sm font-semibold text-nowrap capitalize transition data-[active=false]:hover:bg-[#e7b008]"
+>
+  <i-lucide [name]="icon" class="mr-1 size-5"></i-lucide>
+  {{ label }}
+</a>
