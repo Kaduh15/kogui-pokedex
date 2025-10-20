@@ -1,167 +1,197 @@
 # 🎮 Kogui Pokédex
 
-Sistema completo de Pokédex desenvolvido com Flask (Backend) e tecnologias modernas.
+> Uma aplicação full-stack completa para explorar e gerenciar Pokémons, desenvolvida com Flask (API) e Angular (Frontend).
+
+[![Made with Flask](https://img.shields.io/badge/Flask-000000?style=for-the-badge&logo=flask&logoColor=white)](https://flask.palletsprojects.com/)
+[![Made with Angular](https://img.shields.io/badge/Angular-DD0031?style=for-the-badge&logo=angular&logoColor=white)](https://angular.dev/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![Python](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
 
 ## 📋 Sobre o Projeto
 
-O Kogui Pokédex é uma aplicação full-stack que permite aos usuários criar contas, gerenciar seus Pokémons favoritos e explorar diferentes tipos de Pokémon. O projeto está sendo desenvolvido com foco em segurança, escalabilidade e boas práticas de desenvolvimento.
+O **Kogui Pokédex** é uma aplicação moderna que permite aos usuários:
 
-## 🚀 Status Atual
+- 🔐 **Autenticação segura** com JWT
+- 📱 **Interface responsiva** e intuitiva
+- ⭐ **Sistema de favoritos** para Pokémons
+- 🔍 **Busca e filtros** avançados
+- 📊 **Integração completa** com a PokéAPI
+- 🐳 **Deploy com Docker** para facilitar a execução
 
-**✅ Funcionalidades Implementadas:**
-- API Backend com Flask
-- Sistema de autenticação JWT
-- Registro de usuários com hash bcrypt
-- Modelos de banco de dados estruturados
-- Validações de entrada robustas
-- Código seguindo padrões PEP8
+## 🚀 Início Rápido com Docker
 
-**🚧 Em Desenvolvimento:**
-- Endpoints de gerenciamento de Pokémons
-- Sistema de favoritos
-- Interface frontend
-- Integração com PokeAPI
-- Testes automatizados
+### Pré-requisitos
+- [Docker](https://www.docker.com/get-started) e [Docker Compose](https://docs.docker.com/compose/)
 
-## 🛠 Tecnologias Utilizadas
+### Executar o projeto completo
 
-### Backend (API)
-- **Flask** - Framework web Python
-- **SQLAlchemy** - ORM para banco de dados
-- **JWT Extended** - Autenticação e autorização
-- **bcrypt** - Hash seguro de senhas
-- **Python 3.13+** - Linguagem principal
+```bash
+# Clone o repositório
+git clone https://github.com/Kaduh15/kogui-pokedex.git
+cd kogui-pokedex
 
-### Banco de Dados
-- **SQLAlchemy ORM** - Abstração de banco de dados
-- Suporte para PostgreSQL, MySQL, SQLite
+# Execute com Docker Compose
+docker-compose up -d
+```
 
-### Ferramentas de Desenvolvimento
-- **Black** - Formatação de código
-- **Flake8** - Análise estática de código
-- **uv** - Gerenciador de dependências rápido
+**Acesse a aplicação:**
+- 🌐 **Frontend:** http://localhost:3000 (porta configurável via PORT)
+- 🔌 **API:** http://localhost:5000
+- ⚕️ **Health Check:** http://localhost:5000/health
+
+## 🛠️ Tecnologias Utilizadas
+
+### 🔧 Backend (API)
+| Tecnologia | Versão | Descrição |
+|------------|--------|-----------|
+| **Python** | 3.13+ | Linguagem principal |
+| **Flask** | 3.1.2+ | Framework web |
+| **SQLAlchemy** | 3.1.1+ | ORM para banco de dados |
+| **JWT Extended** | 4.7.1+ | Autenticação JWT |
+| **bcrypt** | 5.0.0+ | Hash seguro de senhas |
+| **Requests** | 2.32.5+ | Cliente HTTP para PokéAPI |
+
+### 🎨 Frontend (Web)
+| Tecnologia | Versão | Descrição |
+|------------|--------|-----------|
+| **Angular** | 20.3+ | Framework frontend |
+| **TypeScript** | 5.9+ | Superset do JavaScript |
+| **Tailwind CSS** | 4.0+ | Framework CSS utilitário |
+| **Lucide Angular** | 0.546+ | Ícones modernos |
+| **RxJS** | 7.8+ | Programação reativa |
+
+### ⚙️ DevOps & Ferramentas
+- **Docker** & **Docker Compose** - Containerização
+- **uv** - Gerenciador de dependências Python
+- **ESLint** & **Prettier** - Linting e formatação
+- **Black** & **Flake8** - Formatação e análise Python
 
 ## 📁 Estrutura do Projeto
 
 ```
 kogui-pokedex/
-├── api/                     # Backend Flask API
-│   ├── models/             # Modelos do banco de dados
-│   ├── routes/             # Endpoints da API
-│   ├── services/           # Lógica de negócio
-│   ├── utils/              # Utilitários e helpers
-│   ├── config.py           # Configurações
-│   ├── database.py         # Setup do banco de dados
-│   ├── main.py             # Aplicação principal
-│   └── .http               # Testes HTTP
-└── README.md               # Documentação principal
+├── 📂 api/                    # 🐍 Backend Flask
+│   ├── 📂 models/            # Modelos do banco de dados
+│   │   ├── usuario_model.py      # Modelo de usuário
+│   │   ├── pokemon_usuario_model.py # Pokémons do usuário
+│   │   ├── pokemon_tipe_model.py    # Tipos de Pokémon
+│   │   └── pokemon_usuario_tipo_model.py # Relacionamento
+│   ├── 📂 routes/            # Endpoints da API
+│   │   ├── auth_routes.py        # Autenticação
+│   │   ├── pokemon_routes.py     # Endpoints Pokémon
+│   │   └── user_routes.py        # Endpoints usuário
+│   ├── 📂 services/          # Lógica de negócio
+│   │   ├── auth_service.py       # Serviço de autenticação
+│   │   ├── pokemon_service.py    # Serviço de Pokémons
+│   │   ├── pokeapi_service.py    # Integração PokéAPI
+│   │   └── user_service.py       # Serviço de usuário
+│   ├── 📂 utils/             # Utilitários
+│   │   ├── auth_decorators.py    # Decorators de autenticação
+│   │   ├── hash.py               # Utilitários de hash
+│   │   └── http_status.py        # Códigos de status HTTP
+│   ├── 📄 config.py          # Configurações da aplicação
+│   ├── 📄 database.py        # Setup do banco de dados
+│   ├── 📄 main.py            # Aplicação principal
+│   ├── 🐳 Dockerfile         # Container da API
+│   └── 📋 README.md          # Documentação da API
+│
+├── 📂 web/                    # 🅰️ Frontend Angular
+│   ├── 📂 src/               # Código-fonte
+│   │   ├── 📂 app/           # Aplicação Angular
+│   │   │   ├── pages/         # Páginas (home, login, etc)
+│   │   │   ├── services/      # Serviços Angular
+│   │   │   └── types/         # Tipos TypeScript
+│   │   ├── 📂 environments/  # Configurações de ambiente
+│   │   └── 📂 utils/         # Utilitários
+│   ├── 🐳 Dockerfile         # Container do frontend
+│   └── 📋 README.md          # Documentação do frontend
+│
+├── 🐳 docker-compose.yml     # Orquestração dos serviços
+└── 📋 README.md               # Documentação principal
 ```
 
-## ⚙️ Como Executar
+## 🚀 Desenvolvimento Local
 
-### Pré-requisitos
-- Python 3.13 ou superior
-- uv (gerenciador de dependências)
-
-### Instalação
-
-1. Clone o repositório:
+### 🐍 Backend (API)
 ```bash
-git clone https://github.com/Kaduh15/kogui-pokedex.git
-cd kogui-pokedex
+cd api/
+# Veja instruções detalhadas em api/README.md
 ```
 
-2. Entre no diretório da API:
+### 🅰️ Frontend (Web)
 ```bash
-cd api
+cd web/
+# Veja instruções detalhadas em web/README.md
 ```
 
-3. Instale as dependências:
-```bash
-uv sync
-```
+## 📚 Documentação Específica
 
-4. Configure as variáveis de ambiente:
+- 📖 **[Documentação da API](api/README.md)** - Endpoints, autenticação, modelos e desenvolvimento
+- 📖 **[Documentação do Frontend](web/README.md)** - Componentes, serviços e desenvolvimento Angular
+
+## 🔧 Configuração de Ambiente
+
+### Variáveis de Ambiente
+
+Crie um arquivo `.env` na pasta `api/` com:
+
 ```bash
-# Crie um arquivo .env na pasta api/
+# Banco de Dados
 DATABASE_URI=sqlite:///pokedex.db
-JWT_SECRET_KEY=your-super-secret-jwt-key
+
+# JWT
+JWT_SECRET_KEY=your-super-secret-jwt-key-here
 JWT_ACCESS_TOKEN_EXPIRES=3600
 ```
 
-5. Execute a aplicação:
+## 🔧 Qualidade de Código
+
+### Backend
 ```bash
-uv run python main.py
+cd api/
+# Linting e formatação
+uv run black .
+uv run flake8 .
 ```
 
-A API estará disponível em `http://localhost:5000`
-
-## 📡 Endpoints Disponíveis
-
-### Autenticação
-- `POST /auth/register` - Registro de usuário
-
-**Exemplo de uso:**
-```http
-POST http://localhost:5000/auth/register
-Content-Type: application/json
-
-{
-    "nome": "João Silva",
-    "login": "joao123",
-    "email": "joao@email.com",
-    "senha": "minhasenhasegura"
-}
+### Frontend
+```bash
+cd web/
+# Linting e formatação
+npm run lint:all
+npm run fix:all
 ```
 
-## 🗄️ Banco de Dados
+## 🚢 Deploy
 
-O sistema utiliza os seguintes modelos:
+### Produção com Docker
 
-- **Usuario** - Dados dos usuários registrados
-- **PokemonUsuario** - Pokémons coletados pelos usuários
-- **TipoPokemon** - Tipos de Pokémon (Fogo, Água, etc.)
-- **PokemonUsuarioTipo** - Relacionamento many-to-many entre pokémons e tipos
+```bash
+# Build das imagens
+docker-compose build
 
-## 🔒 Segurança
-
-- Senhas hasheadas com bcrypt
-- Autenticação JWT stateless
-- Validação rigorosa de entrada
-- Sanitização de dados
-- Configuração por variáveis de ambiente
-
-## 🧪 Testes
-
-Para testar os endpoints, utilize o arquivo `api/.http` com extensões como REST Client no VS Code.
-
-## 📝 Conventional Commits
-
-O projeto segue o padrão de Conventional Commits:
-- `feat:` - Novas funcionalidades
-- `fix:` - Correções de bugs  
-- `docs:` - Documentação
-- `style:` - Formatação de código
-- `refactor:` - Refatoração
-- `test:` - Testes
-- `build:` - Configurações de build
-
-## 🤝 Contribuindo
-
-1. Fork o projeto
-2. Crie sua feature branch (`git checkout -b feature/AmazingFeature`)
-3. Commit suas mudanças (`git commit -m 'feat: adiciona funcionalidade incrível'`)
-4. Push para a branch (`git push origin feature/AmazingFeature`)
-5. Abra um Pull Request
-
-## 📄 Licença
-
-Este projeto está sob a licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
+# Deploy em produção
+docker-compose -f docker-compose.prod.yml up -d
+```
 
 ## 👨‍💻 Autor
 
-**Kadu** - [GitHub](https://github.com/Kaduh15)
+**Kadu**
+- GitHub: [@Kaduh15](https://github.com/Kaduh15)
+- LinkedIn: [Seu LinkedIn](https://linkedin.com/in/Kaduh15)
+
+## 🙏 Agradecimentos
+
+- [PokéAPI](https://pokeapi.co/) - API de dados dos Pokémons
+- [Flask](https://flask.palletsprojects.com/) - Framework web Python
+- [Angular](https://angular.dev/) - Framework frontend
+- [Tailwind CSS](https://tailwindcss.com/) - Framework CSS
 
 ---
 
-⭐ Se este projeto te ajudou, considere dar uma estrela!
+<div align="center">
+  <p>⭐ Se este projeto foi útil para você, considere dar uma estrela!</p>
+  <p>🐛 Encontrou um bug? <a href="https://github.com/Kaduh15/kogui-pokedex/issues">Reporte aqui</a></p>
+  <p>💡 Tem uma sugestão? <a href="https://github.com/Kaduh15/kogui-pokedex/discussions">Vamos conversar!</a></p>
+</div>
