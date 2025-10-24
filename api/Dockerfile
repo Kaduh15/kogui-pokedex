@@ -12,6 +12,8 @@ RUN apt-get update && apt-get install -y \
 # Install uv
 RUN pip install uv
 
+RUN pip install gunicorn
+
 # Copy dependency files
 COPY pyproject.toml uv.lock ./
 
@@ -20,6 +22,12 @@ RUN uv sync
 
 # Copy application code
 COPY . .
+
+EXPOSE 5000
+
+# Force Flask to bind externally when running main.py
+ENV FLASK_RUN_HOST=0.0.0.0
+ENV FLASK_RUN_PORT=5000
 
 # Start the application
 CMD ["uv", "run", "main.py"]
