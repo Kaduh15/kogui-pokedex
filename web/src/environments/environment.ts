@@ -1,3 +1,3 @@
 export const environment = {
-  apiUrl: 'api.kogui.lebdev.me',
+  apiUrl: 'http://api.kogui.lebdev.me',
 };
